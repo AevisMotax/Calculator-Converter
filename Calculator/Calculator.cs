@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -29,13 +29,14 @@ namespace Calculator
         {
             richTextBox1.Font = new Font("Times New Roman", 12);
             //Access many event handlers of the same type
-            //  Button btn = sender as  Button;
-            calculation_Text += (sender as Button).Text.ToString();
+
+            Button button = sender as Button;
+            calculation_Text += button.Text;      
+            //calculation_Text += (sender as Button).Text.ToString();
            // total = Double.TryParse(calculation_Text, out total); 
             calculation_Text = calculation_Text.Replace("X", "*");
 
             richTextBox1.Text = calculation_Text;
-
         }
 
   
@@ -53,7 +54,8 @@ namespace Calculator
            
             //Do it on the calculator form, it changes better>>>>> Modifying specs for the textBox
             richTextBox1.BackColor = Color.Cyan;
-            richTextBox1.Text = "0";
+            richTextBox1.Text = ":)";
+            richTextBox1.Focus();
             richTextBox1.ReadOnly = true;
 
             //For the Currency Converter
@@ -97,6 +99,7 @@ namespace Calculator
         {
 
         }
+
 
 
         //Assign values 
@@ -160,11 +163,12 @@ namespace Calculator
         {
             Zero.Click -= Zero_Click;
             Zero.Click += new EventHandler(button_click);
-        }
+        } 
 
         //Multiply class
         private void Multiply_Click(object sender, EventArgs e)
         {
+            Multiply.Click -= Multiply_Click;
             Multiply.Click += new EventHandler(button_click);
         }
 
@@ -211,7 +215,7 @@ namespace Calculator
         {
             if (calculation_Text.Length > 0)
             {
-                calculation_Text = calculation_Text.Remove(calculation_Text.Length -1, 1);
+                calculation_Text = calculation_Text.Substring(0, calculation_Text.Length - 1);//calculation_Text.Remove(calculation_Text.Length -1, 1);
                 richTextBox1.Text = calculation_Text.Trim();
             }
             else
